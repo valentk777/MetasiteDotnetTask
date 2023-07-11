@@ -1,4 +1,4 @@
-﻿namespace MetaApp.MetaApp;
+﻿namespace MetaApp.MetaAppConsole;
 
 public class Program
 {

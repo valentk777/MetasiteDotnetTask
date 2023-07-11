@@ -1,65 +1,69 @@
-﻿using MetaApp.Domain.ApiClients;
-using MetaApp.Domain.Models;
-using MetaApp.Domain.Storages;
+﻿using MetaApp.Domain.ApiClient;
+using MetaApp.Domain.Displayer;
+using MetaApp.Domain.Storage;
+using Microsoft.Extensions.Logging;
 using System.Timers;
 
 namespace MetaApp.Domain.Service;
 
 public class WeatherService : IWeatherService
 {
-    private const int resetTimerInterval = 30000;  // 30 seconds
-
+    private readonly ILogger<WeatherService> _logger;
     private readonly IWeatherApiClient _weatherApiClient;
-    private readonly IMetaAppStorage _storage;
-
-    private System.Timers.Timer _timer = new System.Timers.Timer(resetTimerInterval);
+    private readonly IStorage _storage;
+    private readonly IDisplayer _displayer;
 
     public WeatherService(
+        ILogger<WeatherService> logger,
         IWeatherApiClient weatherApiClient,
-        IMetaAppStorage storage)
+        IStorage storage,
+        IDisplayer displayer)
     {
+        _logger = logger;
         _weatherApiClient = weatherApiClient;
         _storage = storage;
+        _displayer = displayer;
     }
 
-    public void StartFetchingWeatherData(List<string> cities)
+    public void StartFetchingWeatherData(List<string> cities, double intervals)
     {
-        _timer = new System.Timers.Timer(30000); // 30 seconds
-        _timer.Elapsed += (sender, e) => TimerElapsed(sender, e, cities);
-        _timer.AutoReset = true;
+        _logger.LogInformation(string.Format(Resources.StartFeatchingWeatherData, cities, intervals));
+
+        var timer = new System.Timers.Timer(intervals);
+        timer.Elapsed += (sender, e) => TimerElapsed(sender, e, cities);
+        timer.AutoReset = true;
 
         // Execute the TimerElapsed method immediately upon starting the timer
         TimerElapsed(null, null, cities);
 
-        _timer.Start();
+        timer.Start();
     }
 
     private void TimerElapsed(object sender, ElapsedEventArgs e, List<string> cities)
     {
         cities.ForEach(async city =>
         {
-            var weatherData = await _weatherApiClient.GetWeatherDataAsync(city);
-
-            DisplayWeatherData(weatherData);
-
-            await SaveWeatherData(weatherData);
+            await HandleDataCollection(city);
         });
     }
 
-    private void DisplayWeatherData(WeatherData weatherData)
+    private async Task HandleDataCollection(string city)
     {
-        // TODO: To constants.
-        Console.WriteLine($"City: {weatherData.City}");
-        Console.WriteLine($"Temperature: {weatherData.Temperature}");
-        Console.WriteLine($"Description: {weatherData.Description}");
-        Console.WriteLine();
-    }
+        _logger.LogInformation(string.Format(Resources.GettingDataForCity, city));
 
-    private async Task SaveWeatherData(WeatherData weatherData)
-    {
+        var weatherData = await _weatherApiClient.GetWeatherDataAsync(city);
+
         if (weatherData.IsValid())
         {
+            _logger.LogInformation(string.Format(Resources.DataForCityCollected, city, weatherData));
+
+            _displayer.DisplayWeatherData(weatherData);
+
             await _storage.SaveWeatherData(weatherData);
+        }
+        else
+        {
+            _logger.LogError(string.Format(Resources.DataForCityNotCollected, city, weatherData));
         }
     }
 }

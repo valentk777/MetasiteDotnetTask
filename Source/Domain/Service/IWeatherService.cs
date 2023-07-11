@@ -1,7 +1,6 @@
-﻿namespace MetaApp.Domain.Service
+﻿namespace MetaApp.Domain.Service;
+
+public interface IWeatherService
 {
-    public interface IWeatherService
-    {
-        void StartFetchingWeatherData(List<string> cities);
-    }
+    void StartFetchingWeatherData(List<string> cities, double intervals);
 }

@@ -1,4 +1,4 @@
-﻿namespace MetaApp.Domain.Models;
+﻿namespace MetaApp.Domain.Model;
 
 public class WeatherData
 {
