@@ -4,6 +4,7 @@ using MetaApp.Domain.Storage;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System.Reflection;
+using System.Text;
 
 namespace MetaApp.Integrations.Storage;
 
@@ -30,16 +31,19 @@ public class FileStorage : IStorage
 
         _logger.LogInformation(string.Format(Resources.FileStoragePath, filePath));
 
-        using (var streamWriter = new StreamWriter(filePath))
-        {
-            await streamWriter.WriteAsync(JsonConvert.SerializeObject(data));
-        }
+        //using (var streamWriter = new StreamWriter(filePath))
+        //{
+        //    await streamWriter.WriteAsync(JsonConvert.SerializeObject(data));
+        //}
     }
 
     private static string GetFileStorageLocation()
     {
-        var currentModule = Assembly.GetEntryAssembly()?.Location;
-        var parentDirectory = Directory.GetParent(currentModule).Parent.Parent.Parent.Parent.Parent.FullName;
+        var currentModule = (Assembly.GetEntryAssembly()?.Location)
+            ?? throw new ApplicationValidationException(Resources.PathIsNull);
+        var parentDirectory = (Directory.GetParent(currentModule)?.Parent?.Parent?.Parent?.Parent?.Parent?.FullName)
+            ?? throw new ApplicationValidationException(Resources.PathIsNull);
+
         var storageDirectory = Path.Join(parentDirectory, "FileStorage");
 
         return storageDirectory;
