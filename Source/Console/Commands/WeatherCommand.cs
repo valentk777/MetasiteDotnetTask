@@ -9,13 +9,11 @@ namespace MetaApp.MetaAppConsole.Commands;
 public class WeatherCommand : Command
 {
     private readonly IWeatherService _weatherService;
-    private readonly WeatherConfig _config;
 
     public WeatherCommand(IWeatherService weatherService, IOptions<WeatherConfig> config)
         : base(Constants.Commands.Weather, Resources.WeatherCommandDescription)
     {
         _weatherService = weatherService;
-        _config = config.Value;
 
         AddOption(new Option<List<string>?>(
             name: Constants.Commands.CityParameter,
@@ -35,5 +33,5 @@ public class WeatherCommand : Command
     }
 
     private void HandleWeatherCommand(List<string> city) =>
-        _weatherService.StartFetchingWeatherData(city, _config.WeatherCommandFetchIntervalsMiliseconds);
+        _weatherService.StartFetchingWeatherData(city);
 }

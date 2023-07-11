@@ -6,7 +6,7 @@ public class WeatherConfig
 
     public string WeatherApiUrl { get; init; } = default!;
 
-    public double WeatherCommandFetchIntervalsMiliseconds { get; init; } = default!;
+    public double FetchIntervalsInMiliseconds { get; init; } = default!;
 
     public string WeatherApiUsername { get; init; } = default!;
 

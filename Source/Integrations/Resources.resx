@@ -123,6 +123,12 @@
   <data name="BearerTokenIsNull" xml:space="preserve">
     <value>Issues in authentication. Bearer token is null.</value>
   </data>
+  <data name="DislplayWeatherData" xml:space="preserve">
+    <value>Dislay povided weather data.</value>
+  </data>
+  <data name="FileStoragePath" xml:space="preserve">
+    <value>File for storage will be saved to location {0}</value>
+  </data>
   <data name="PathIsNull" xml:space="preserve">
     <value>Current location path is null.</value>
   </data>

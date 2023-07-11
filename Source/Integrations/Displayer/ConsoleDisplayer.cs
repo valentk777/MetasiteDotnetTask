@@ -15,6 +15,13 @@ public class ConsoleDisplayer : IDisplayer
 
     public void DisplayWeatherData(WeatherData weatherData)
     {
+        if (weatherData == null)
+        {
+            _logger.LogError(Resources.WeatherDataIsNull);
+            return;
+        }
+
+        _logger.LogInformation(Resources.DislplayWeatherData);
         var informationForDisplay = string.Format(
             Resources.WeatherDataForDisplayFormat, weatherData.City, weatherData.Temperature, weatherData.Description);
 

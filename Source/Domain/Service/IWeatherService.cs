@@ -2,5 +2,5 @@
 
 public interface IWeatherService
 {
-    void StartFetchingWeatherData(List<string> cities, double intervals);
+    void StartFetchingWeatherData(List<string> cities);
 }

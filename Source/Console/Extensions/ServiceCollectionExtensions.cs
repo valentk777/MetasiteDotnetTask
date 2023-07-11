@@ -11,7 +11,7 @@ public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddWeatherCommandHandler(this IServiceCollection service) =>
         service
-            .AddSingleton<IWeatherService, WeatherService>()
+            .AddTransient<IWeatherService, WeatherService>() // return always new instance becasue it is statefull.
             .AddSingleton<IWeatherApiClient, WeatherApiClient>();
 
     public static IServiceCollection ConfigureAllOptions(this IServiceCollection services, IConfiguration configuration) =>

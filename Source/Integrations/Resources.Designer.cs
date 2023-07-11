@@ -79,6 +79,24 @@ namespace MetaApp.Integrations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Dislay povided weather data..
+        /// </summary>
+        internal static string DislplayWeatherData {
+            get {
+                return ResourceManager.GetString("DislplayWeatherData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File for storage will be saved to location {0}.
+        /// </summary>
+        internal static string FileStoragePath {
+            get {
+                return ResourceManager.GetString("FileStoragePath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Current location path is null..
         /// </summary>
         internal static string PathIsNull {
