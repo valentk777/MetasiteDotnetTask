@@ -132,11 +132,17 @@
   <data name="PathIsNull" xml:space="preserve">
     <value>Current location path is null.</value>
   </data>
+  <data name="RequestIsNotSuccessful" xml:space="preserve">
+    <value>Request to: {0} returned status code: {1}.</value>
+  </data>
+  <data name="RetrySavingToFile" xml:space="preserve">
+    <value>{0} time retry saving to file.</value>
+  </data>
   <data name="StartAuthentication" xml:space="preserve">
     <value>Start authentication for weather API.</value>
   </data>
   <data name="WeatherDataForDisplayFormat" xml:space="preserve">
-    <value>--------------------------\nCity: {0} \nTemperature: {1}\nDescription: {2}\n--------------------------\n</value>
+    <value>--------------------------\nTime: {0}\nCity: {1} \nTemperature: {2}\nPrecipitation: {3}\nWeather: {4}\n--------------------------\n</value>
   </data>
   <data name="WeatherDataIsNull" xml:space="preserve">
     <value>Weather data is null.</value>

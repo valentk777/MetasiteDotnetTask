@@ -4,13 +4,14 @@ using MetaApp.Domain.Storage;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System.Reflection;
-using System.Text;
 
 namespace MetaApp.Integrations.Storage;
 
 public class FileStorage : IStorage
 {
     private readonly ILogger<FileStorage> _logger;
+
+    private const string FileNameFormat = "yyyyMMdd_HHmmss";
 
     public FileStorage(ILogger<FileStorage> logger)
     {
@@ -19,7 +20,7 @@ public class FileStorage : IStorage
 
     private readonly string? currentLocation = GetFileStorageLocation();
 
-    public async Task SaveWeatherData(WeatherData data)
+    public async Task SaveWeatherDataAsync(WeatherData data)
     {
         if (currentLocation == null)
         {
@@ -27,14 +28,10 @@ public class FileStorage : IStorage
             throw new ApplicationValidationException(Resources.PathIsNull);
         }
 
-        var filePath = Path.Combine(currentLocation, $"{DateTime.Now.ToString("yyyyMMdd_HHmmss")}.txt");
-
+        var filePath = Path.Combine(currentLocation, $"{DateTime.Now.ToString(FileNameFormat)}.txt");
         _logger.LogInformation(string.Format(Resources.FileStoragePath, filePath));
 
-        //using (var streamWriter = new StreamWriter(filePath))
-        //{
-        //    await streamWriter.WriteAsync(JsonConvert.SerializeObject(data));
-        //}
+        await WriteToFileWithRetriesAsync(filePath, data);
     }
 
     private static string GetFileStorageLocation()
@@ -47,5 +44,25 @@ public class FileStorage : IStorage
         var storageDirectory = Path.Join(parentDirectory, "FileStorage");
 
         return storageDirectory;
+    }
+
+    private async Task WriteToFileWithRetriesAsync(
+        string filePath, WeatherData data, int maxRetries = 5, int retryDelayMilliseconds = 500)
+    {
+        var serializedData = JsonConvert.SerializeObject(data);
+
+        for (int retryNumber = 1; retryNumber <= maxRetries; retryNumber++)
+        {
+            try
+            {
+                await File.WriteAllTextAsync(filePath, serializedData);
+                break; // Exit the loop if the write operation succeeds
+            }
+            catch (IOException)
+            {
+                _logger.LogWarning(string.Format(Resources.RetrySavingToFile, retryNumber));
+                await Task.Delay(retryDelayMilliseconds);
+            }
+        }
     }
 }

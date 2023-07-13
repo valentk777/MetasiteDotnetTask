@@ -106,6 +106,24 @@ namespace MetaApp.Integrations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Request to: {0} returned status code: {1}..
+        /// </summary>
+        internal static string RequestIsNotSuccessful {
+            get {
+                return ResourceManager.GetString("RequestIsNotSuccessful", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} time retry saving to file..
+        /// </summary>
+        internal static string RetrySavingToFile {
+            get {
+                return ResourceManager.GetString("RetrySavingToFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Start authentication for weather API..
         /// </summary>
         internal static string StartAuthentication {
@@ -115,7 +133,7 @@ namespace MetaApp.Integrations {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to --------------------------\nCity: {0} \nTemperature: {1}\nDescription: {2}\n--------------------------\n.
+        ///   Looks up a localized string similar to --------------------------\nTime: {0}\nCity: {1} \nTemperature: {2}\nPrecipitation: {3}\nWeather: {4}\n--------------------------\n.
         /// </summary>
         internal static string WeatherDataForDisplayFormat {
             get {

@@ -6,5 +6,7 @@ public static class Constants
 
     public const string WeatherApiAuthorizationEndpoint = "/api/authorize";
 
-    public const string Bearer = "Bearer";
+    public const string WeatherApiGetWeatherEndpoint = "api/weather/";
+
+    public const string Bearer = "bearer";
 }

@@ -1,10 +1,10 @@
 ﻿namespace MetaApp.Domain.Model;
 
-public class AuthorizationResponse
+public class BearerToken
 {
     public string? Bearer { get; set; }
 
-    public AuthorizationResponse(string? bearer)
+    public BearerToken(string? bearer)
     {
         Bearer = bearer;
     }

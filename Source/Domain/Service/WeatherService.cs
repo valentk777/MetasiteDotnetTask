@@ -49,11 +49,11 @@ public class WeatherService : IWeatherService, IDisposable
     {
         cities.ForEach(async city =>
         {
-            await HandleDataCollection(city);
+            await HandleDataCollectionAsync(city);
         });
     }
 
-    private async Task HandleDataCollection(string city)
+    private async Task HandleDataCollectionAsync(string city)
     {
         _logger.LogInformation(string.Format(Resources.GettingDataForCity, city));
 
@@ -65,7 +65,7 @@ public class WeatherService : IWeatherService, IDisposable
 
             _displayer.DisplayWeatherData(weatherData);
 
-            await _storage.SaveWeatherData(weatherData);
+            await _storage.SaveWeatherDataAsync(weatherData);
         }
         else
         {

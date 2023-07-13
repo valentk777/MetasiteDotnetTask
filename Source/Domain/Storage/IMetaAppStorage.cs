@@ -4,5 +4,5 @@ namespace MetaApp.Domain.Storage;
 
 public interface IStorage
 {
-    Task SaveWeatherData(WeatherData data);
+    Task SaveWeatherDataAsync(WeatherData data);
 }

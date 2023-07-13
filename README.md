@@ -9,11 +9,11 @@ Build console app metaapp.exe that will show and save current weather data recei
 
 * This command should get & save cities weather data periodically in 30 sec intervals: 
 
-```metaapp.exe weather --city city1, city2,...,cityn.```
+```metaapp.exe weather --city city1,city2,...,cityn.```
 
 * Example: 
 
-```metaapp.exe weather --city Vilnius, Riga```
+```metaapp.exe weather --city Vilnius,Brussels```
 
 * App should display city weather data
 * Weather data should be saved in a persistent way

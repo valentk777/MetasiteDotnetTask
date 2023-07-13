@@ -4,9 +4,19 @@ public class WeatherData
 {
     public string? City { get; set; }
 
-    public string? Temperature { get; set; }
+    public int? Temperature { get; set; }
 
-    public string? Description { get; set; }
+    public int? Precipitation { get; set; }
 
-    public bool IsValid() => City != null && Temperature != null && Description != null;
+    public string? Weather { get; set; }
+
+    public WeatherData(string? city, int? temperature, int? precipitation, string? weather)
+    {
+        City = city;
+        Temperature = temperature;
+        Precipitation = precipitation;
+        Weather = weather;
+    }
+
+    public bool IsValid() => City != null && Temperature != null && Precipitation != null && Weather != null;
 }

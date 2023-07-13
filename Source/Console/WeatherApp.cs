@@ -50,6 +50,12 @@ public static class WeatherApp
             .AddWeatherCommandHandler()
             .AddSingleton<IStorage, FileStorage>()
             .AddSingleton<IDisplayer, ConsoleDisplayer>()
+            .AddLogging(builder =>
+            {
+                builder.AddConfiguration(configuration.GetSection(LoggingConfig.SectionName));
+                builder.AddConsole();
+            })
+
             .AddLogging(builder => builder.AddConsole())
             .BuildServiceProvider();
 

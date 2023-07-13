@@ -1,7 +1,3 @@
-using MetaApp.MetaAppConsole;
-using System.Diagnostics;
-using System.Threading;
-
 namespace MetaAppFunctionalTests;
 
 public class MetaAppTests

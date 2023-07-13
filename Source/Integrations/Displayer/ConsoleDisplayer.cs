@@ -23,7 +23,7 @@ public class ConsoleDisplayer : IDisplayer
 
         _logger.LogInformation(Resources.DislplayWeatherData);
         var informationForDisplay = string.Format(
-            Resources.WeatherDataForDisplayFormat, weatherData.City, weatherData.Temperature, weatherData.Description);
+            Resources.WeatherDataForDisplayFormat, DateTime.UtcNow, weatherData.City, weatherData.Temperature, weatherData.Precipitation, weatherData.Weather);
 
         informationForDisplay = informationForDisplay.Replace("\\n", Environment.NewLine);
 

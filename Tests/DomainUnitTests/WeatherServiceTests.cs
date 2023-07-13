@@ -33,7 +33,7 @@ public class WeatherServiceTests
         var weatherApiClientMock = new Mock<IWeatherApiClient>();
         weatherApiClientMock
             .Setup(apiClient => apiClient.GetWeatherDataAsync(It.IsAny<string>()))
-            .ReturnsAsync(new WeatherData { City = "TestCity", Temperature = "25", Description = "Sunny" });
+            .ReturnsAsync(new WeatherData("TestCity", 25, 90, "Sunny"));
 
         var cities = new List<string> { "Vilnius", "Riga" };
 
@@ -52,7 +52,7 @@ public class WeatherServiceTests
         // Assert
         weatherApiClientMock.Verify(apiClient => apiClient.GetWeatherDataAsync(It.IsAny<string>()), Times.Exactly(cities.Count));
         displayerMock.Verify(storage => storage.DisplayWeatherData(It.IsAny<WeatherData>()), Times.Exactly(cities.Count));
-        storageMock.Verify(storage => storage.SaveWeatherData(It.IsAny<WeatherData>()), Times.Exactly(cities.Count));
+        storageMock.Verify(storage => storage.SaveWeatherDataAsync(It.IsAny<WeatherData>()), Times.Exactly(cities.Count));
     }
 
     [Fact]
@@ -76,7 +76,7 @@ public class WeatherServiceTests
         var weatherApiClientMock = new Mock<IWeatherApiClient>();
         weatherApiClientMock
             .Setup(apiClient => apiClient.GetWeatherDataAsync(It.IsAny<string>()))
-            .ReturnsAsync(new WeatherData { City = "TestCity", Temperature = "25", Description = "Sunny" });
+            .ReturnsAsync(new WeatherData("TestCity", 25, 90, "Sunny"));
 
         var cities = new List<string> { "Vilnius", "Riga" };
 
@@ -97,15 +97,16 @@ public class WeatherServiceTests
 
         weatherApiClientMock.Verify(apiClient => apiClient.GetWeatherDataAsync(It.IsAny<string>()), Times.Exactly(cities.Count * 2));
         displayerMock.Verify(storage => storage.DisplayWeatherData(It.IsAny<WeatherData>()), Times.Exactly(cities.Count * 2));
-        storageMock.Verify(storage => storage.SaveWeatherData(It.IsAny<WeatherData>()), Times.Exactly(cities.Count * 2));
+        storageMock.Verify(storage => storage.SaveWeatherDataAsync(It.IsAny<WeatherData>()), Times.Exactly(cities.Count * 2));
     }
 
     [Theory]
-    [InlineData(null, "10", "sunny")]
-    [InlineData("TestCity", null, "sunny")]
-    [InlineData("TestCity", "10", null)]
+    [InlineData(null, 10, 80, "sunny")]
+    [InlineData("TestCity", null, 80, "sunny")]
+    [InlineData("TestCity", 10, null, "sunny")]
+    [InlineData("TestCity", 10, 80, null)]
     public void GivenWeatherService_WhenStartFetchingIncorectWeatherData_ThenShouldNotDisplayAndSaveData(
-        string city, string temperatur, string description)
+        string city, int? temperatur, int? precipitation, string description)
     {
         // Arrange
         var displayerMock = new Mock<IDisplayer>();
@@ -125,7 +126,7 @@ public class WeatherServiceTests
         var weatherApiClientMock = new Mock<IWeatherApiClient>();
         weatherApiClientMock
             .Setup(apiClient => apiClient.GetWeatherDataAsync(It.IsAny<string>()))
-            .ReturnsAsync(new WeatherData { City = city, Temperature = temperatur, Description = description });
+            .ReturnsAsync(new WeatherData(city, temperatur, precipitation, description));
 
         var cities = new List<string> { "Vilnius" };
 
@@ -143,6 +144,6 @@ public class WeatherServiceTests
         // Assert
         weatherApiClientMock.Verify(apiClient => apiClient.GetWeatherDataAsync(It.IsAny<string>()), Times.Once);
         displayerMock.Verify(storage => storage.DisplayWeatherData(It.IsAny<WeatherData>()), Times.Never);
-        storageMock.Verify(storage => storage.SaveWeatherData(It.IsAny<WeatherData>()), Times.Never);
+        storageMock.Verify(storage => storage.SaveWeatherDataAsync(It.IsAny<WeatherData>()), Times.Never);
     }
 }
