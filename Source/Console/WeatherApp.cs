@@ -12,9 +12,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System.CommandLine;
+using System.Diagnostics.CodeAnalysis;
 
 namespace MetaApp.MetaAppConsole;
 
+[ExcludeFromCodeCoverage]
 public static class WeatherApp
 {
     public static void Run(string[] args)

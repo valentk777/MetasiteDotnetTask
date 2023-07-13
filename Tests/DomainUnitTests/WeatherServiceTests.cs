@@ -7,9 +7,11 @@ using MetaApp.Domain.Storage;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Moq;
+using System.Diagnostics.CodeAnalysis;
 
-namespace DomainUnitTests;
+namespace MetaApp.DomainUnitTests;
 
+[ExcludeFromCodeCoverage]
 public class WeatherServiceTests
 {
     [Fact]

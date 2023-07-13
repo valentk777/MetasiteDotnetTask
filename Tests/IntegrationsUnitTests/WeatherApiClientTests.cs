@@ -1,10 +1,6 @@
-namespace IntegrationsUnitTests;
+namespace MetaApp.IntegrationsUnitTests;
 
 public class WeatherApiClientTests
 {
-    [Fact]
-    public void Test1()
-    {
 
-    }
 }

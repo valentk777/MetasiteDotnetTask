@@ -1,5 +1,8 @@
-﻿namespace MetaApp.MetaAppConsole;
+﻿using System.Diagnostics.CodeAnalysis;
 
+namespace MetaApp.MetaAppConsole;
+
+[ExcludeFromCodeCoverage]
 public static class Constants
 {
     public const string AppSettingsFile = "appsettings.json";

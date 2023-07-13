@@ -4,9 +4,11 @@ using MetaApp.Domain.Service;
 using MetaApp.Integrations.ApiClient;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System.Diagnostics.CodeAnalysis;
 
 namespace MetaApp.MetaAppConsole.Extensions;
 
+[ExcludeFromCodeCoverage]
 public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddWeatherCommandHandler(this IServiceCollection service) =>

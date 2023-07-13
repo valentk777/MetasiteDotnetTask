@@ -3,9 +3,11 @@ using MetaApp.Domain.Service;
 using Microsoft.Extensions.Options;
 using System.CommandLine;
 using System.CommandLine.NamingConventionBinder;
+using System.Diagnostics.CodeAnalysis;
 
 namespace MetaApp.MetaAppConsole.Commands;
 
+[ExcludeFromCodeCoverage]
 public class WeatherCommand : Command
 {
     private readonly IWeatherService _weatherService;

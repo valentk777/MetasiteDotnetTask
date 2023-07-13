@@ -1,5 +1,8 @@
-namespace MetaAppFunctionalTests;
+using System.Diagnostics.CodeAnalysis;
 
+namespace MetaApp.MetaAppFunctionalTests;
+
+[ExcludeFromCodeCoverage]
 public class MetaAppTests
 {
     // TODO: implement
